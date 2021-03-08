@@ -1,0 +1,208 @@
+/* logo */
+.ifeng-hd{
+    /* 宽度可以不给，给一定要是100%，不给也是100%。不写750px是因为设计稿是750但我们要适配各种机型的手机
+    width: 100%; */
+    height: .8rem;
+    /* 如果不转化img但需要水平居中，就在这里放文本居中的代码 
+    text-align: center; */
+
+    /* 加个背景颜色是为了看得清晰是否居中 */
+    /* background-color: paleturquoise;   方便看 */
+
+    /* 去除margin-top的传递问题 */
+    overflow: hidden;
+}
+
+.ifeng-hd img{
+    /* 行内块有默认下间距，转化为块就没了 */
+    display: block;
+    width: 1.95rem;
+    height: 0.37rem;
+
+    /* 接下来想让img在hd里垂直居中，不能用height=行高，因为行高对块不起作用，只有在文字居中的时候才用 */
+    margin: 0.215rem auto;   /* （0.8-0.37）/2 */
+    /* 经典bug：给子元素加margin-top，会出现父元素整体往下掉的状况，因为margin-top有传递的问题
+    解决方法：给父元素添加overflow：hidden，专门用来解决传递问题
+    */
+}
+
+
+
+/* nav */
+.ifeng-nav{
+    height: 0.8rem;
+    /* 行高仅限于文字垂直居中 */
+    line-height: .8rem;
+    /* background-color:yellow;   方便看 */
+    
+    /* 控制子元素的排列方式（加在父元素上） - 默认水平排列（写多套） */
+    display: -webkit-box;   /* 旧版本 */
+    display: -webkit-flex;   /* 新版本 */
+    display: -ms-flexbox;   /* 过渡版本 */
+    display: flex;   /* 普通版本 */
+}
+
+.ifeng-nav a{
+    /* flex：1的作用：两个字——平分
+    写在子元素上，它的作用就是自动划分百分比，比如这里写了五个东西，就会自动计算100%/5 */
+    /* -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1; */
+
+    /* 以上是为了叫教学flex：1才这么写，一般字数不同就用padding，字体间距54，左右一平分54/2 */
+    padding: 0 0.27rem;
+    /* line-height: .8rem; */
+    text-align: center;
+    color: #727272;
+    font-size: .36rem;
+}
+
+.ifeng-nav .current{
+    color: #F54343;
+}
+
+
+
+/* swiper */
+.swiper-slide img{
+    position: relative;
+    /* 给个宽度100%了就适配容器了 */
+    width: 100%;
+}
+
+/* 以下两个类名都是去控制台瞄一下，复制过来之后写上自己想要的样式，这是一个覆盖的过程 */
+.swiper-pagination{
+    text-align: right;
+    color: #004276;
+    font-size: .2rem;
+}
+
+.swiper-pagination-current{
+    font-size: .36rem;
+    color:#F54343 ;
+}
+
+.swiper-slide p{
+    position: absolute;
+    bottom: 0.07rem;
+    left: 0;
+
+    font-size:.32rem ;
+    color: peachpuff;
+
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.03)); 
+
+}
+
+
+
+/* 主体：左图右文 */
+.ifeng-sec{
+    /* 效果等同于float，只不过浮动是pc端，flex是手机端 */
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+
+    border-bottom: 1px solid #e4e4e4;
+    padding: 0.24rem 0.3rem;
+    /* background-color: paleturquoise;   方便看 */
+}
+
+
+/* 注意！图片：父元素给完大小之后，子元素（标签名）一定要给100%让它自适应 */
+.ifeng-sec .pic{
+    width: 1.82rem;
+    height: 1.3rem;
+    /* 因为figure自带间距，并且reset没有清空。就自己在这里加一下 */
+    margin: 0 .32rem 0 0;
+    padding: 0;
+}
+.ifeng-sec .pic img{
+    width: 100%;
+    height: 100%;
+}
+
+
+.ifeng-sec .txt{
+    /* 自动计算:占剩下的部分 */
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+
+    /* 两端对齐，以下是旧版本的属性，对应旧版本的写法 */
+    /* ① 转化为弹性盒模型 */
+    display: -webkit-box;
+    /* ② 弹性盒模型默认是水平排列，这时候要用orient改成垂直，控制子元素的 */
+    -webkit-box-orient: vertical;
+    /* ③ 控制两端对齐 */
+    -webkit-box-pack: justify;
+}
+
+
+/* 时间和评论数同样需要两端对齐,新版本的属性对应新版本写法
+控制子元素 - 水平排列 */
+.ifeng-sec .txt p{
+    /* display: -webkit-box;   旧版本 */
+    display: flex;   /* 新版本 */
+    justify-content: space-between;   /* 和新版本组合的写法 */
+    /* -webkit-box-orient: horizontal;默认 不用写 */
+}
+
+
+/* 文字超出指定行数的内容用 省略号 表示
+固定的写法，背下来 */
+.ifeng-sec .txt h2{
+    /* ① 转化为弹性盒模型 */
+    display: -webkit-box;
+    /* ② 垂直排列 */
+    -webkit-box-orient: vertical;
+    /* ③ line-clamp 指定行数 */
+    -webkit-line-clamp: 2;
+    /* ④ 对多出来的内容溢出隐藏 */
+    overflow: hidden;
+}
+
+
+
+/* 字体图标，在语雀笔记day12
+① 导入字体图标的路径：font-face（复制），只需要修改名称；
+*/
+@font-face{
+    font-family: 'SinaHomeFont';
+    src: url('../font/SinaHomeFont.eot'); /* IE9 Compat Modes */
+    src: url('../font/SinaHomeFont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../font/SinaHomeFont.woff') format('woff'), /* Modern Browsers */
+    url('../font/SinaHomeFont.ttf')  format('truetype'), /* Safari, Android, iOS */
+    url('../font/SinaHomeFont.svg#SinaHomeFont') format('svg'); /* Legacy iOS */
+}
+/* ② 引入公用的样式文件（复制） */
+/* 注意！icon-font是公用类名，一定要把它加到html里去，不然调用不了 */
+.icon-font{
+    font-family: 'SinaHomeFont';
+    font-weight:normal;
+    font-style:normal;
+    
+    /*解决字体图标锯齿和不清晰的情况*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+/* ③ 编码 */
+.icon-com::before{
+    content:'\e919';
+}
+
+/* 调bug - 为什么会出现口的形状而不是小图标
+原因1：路径问题 - index.css   ../ 上级
+                css
+                font
+因为index.css是在css文件夹中，所以要先找到css文件夹，才能找到font文件夹，所以在写关于index的样式的时候，先找到css，才能找到css的兄弟font。
+
+路径三种：
+平级关系 - 直接写文件的名称
+上级关系 - ../
+下级关系 - /
+
+原因2：除了结构本身的类名，千万别忘记把②中引用的公用的类名写进HTML结构。
+*/
